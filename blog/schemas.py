@@ -1,3 +1,4 @@
+from typing import List
 from pydantic import BaseModel
 
 
@@ -5,13 +6,8 @@ class Blog(BaseModel):
     title: str
     body: str
 
-
-class ShowBlog(BaseModel):
-    title: str
-    body: str
-
-class Config:
-    from_attributes = True
+    class Config:          # indented inside Blog
+     from_attributes = True
 
 
 class User(BaseModel):
@@ -20,9 +16,18 @@ class User(BaseModel):
     password: str
 
 
+class ShowBlog(BaseModel):
+    title: str
+    body: str
+
+    class Config:          # indented inside ShowBlog
+     from_attributes = True
+
+
 class ShowUser(BaseModel):
     name: str
     email: str
+    blogs: List[ShowBlog] = []
 
-class Config:
-    from_attributes = True
+    class Config:          # indented inside ShowUser
+     from_attributes = True
